@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowRight, CalendarCheck, ChefHat, Clock, Leaf, MapPin, Phone, Quote, Sparkles, Star, UtensilsCrossed, Wine } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import steakImage from "@/assets/joseph-decuis-real-steak.jpg";
+import steakImage from "@/assets/joseph-decuis-main-steak.jpg";
 import diningRoomImage from "@/assets/joseph-decuis-dining-room.jpg";
 import weddingFarmImage from "@/assets/joseph-decuis-wedding-farm.png";
 import weddingReceptionImage from "@/assets/joseph-decuis-wedding-reception.png";
