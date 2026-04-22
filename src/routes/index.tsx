@@ -1,26 +1,29 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import heroImage from "@/assets/joseph-decuis-candlelit-wagyu.jpg";
+import { HomePageContent } from "@/components/restaurant/LuxuryRestaurantSections";
+
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Joseph Decuis | Luxury Wagyu Dining in Roanoke" },
+      {
+        name: "description",
+        content:
+          "Reserve Joseph Decuis for farm-raised Wagyu steaks, candlelit ambience, and upscale American dining in Roanoke, Indiana.",
+      },
+      { property: "og:title", content: "Joseph Decuis | Luxury Wagyu Dining in Roanoke" },
+      {
+        property: "og:description",
+        content: "A refined local restaurant experience with farm Wagyu, seasonal entrées, and intimate service.",
+      },
+      { property: "og:image", content: heroImage },
+      { name: "twitter:image", content: heroImage },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. For sites with multiple pages (About, Services, Contact, etc.),
-// create separate route files (about.tsx, services.tsx, contact.tsx) — don't put all pages in this file.
-function PlaceholderIndex() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
-
 function Index() {
-  return <PlaceholderIndex />;
+  return <HomePageContent />;
 }
