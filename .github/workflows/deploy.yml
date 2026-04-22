@@ -33,7 +33,33 @@ jobs:
       - name: Build
         run: |
           bun run build
+          node - <<'NODE'
+          const fs = require('fs');
+          const path = require('path');
+          const assetsDir = 'dist/client/assets';
+          const assets = fs.readdirSync(assetsDir);
+          const css = assets.find((file) => /^styles-.*\.css$/.test(file));
+          const entry = assets
+            .filter((file) => /^index-.*\.js$/.test(file))
+            .map((file) => ({ file, size: fs.statSync(path.join(assetsDir, file)).size }))
+            .sort((a, b) => b.size - a.size)[0]?.file;
+          if (!css || !entry) throw new Error('Missing GitHub Pages static assets');
+          const html = `<!doctype html>
+          <html lang="en" class="dark">
+            <head>
+              <meta charset="UTF-8" />
+              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+              <title>Joseph Decuis | Luxury Wagyu Dining in Roanoke</title>
+              <meta name="description" content="Reserve an intimate farm-to-table dinner at Joseph Decuis, Roanoke's luxurious American restaurant for Wagyu steaks and seasonal cuisine." />
+              <script type="module" crossorigin src="./assets/${entry}"></script>
+              <link rel="stylesheet" crossorigin href="./assets/${css}" />
+            </head>
+            <body></body>
+          </html>`;
+          fs.writeFileSync('dist/client/index.html', html);
+          NODE
           cp dist/client/index.html dist/client/404.html
+          touch dist/client/.nojekyll
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
