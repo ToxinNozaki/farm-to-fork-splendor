@@ -1,7 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, CalendarCheck, ChefHat, Clock, ExternalLink, Leaf, MapPin, Phone, Quote, Sparkles, Star, UtensilsCrossed, Wine } from "lucide-react";
+import { useEffect, useState, type FormEvent } from "react";
 
 import { Button } from "@/components/ui/button";
+import { supabase } from "@/integrations/supabase/client";
 import steakImage from "@/assets/joseph-decuis-main-steak.jpg";
 import diningRoomImage from "@/assets/joseph-decuis-dining-room.jpg";
 import weddingFarmImage from "@/assets/joseph-decuis-wedding-farm.png";
@@ -98,6 +100,17 @@ const farmsteadSpaces = [
   { name: "Farm House", description: "The restored 1884 home includes bedrooms with private baths, an 1884-style kitchen, formal dining room, sitting room, chef's kitchen, wine cellar, and root cellar massage room." },
   { name: "The Barn", description: "The farm nursery where Mangalitza pigs, chickens, rabbits, goats, turkeys, and miniature horses introduce guests to farm life and where food comes from." },
 ];
+
+type BlogPost = {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: string;
+  author_name: string;
+  is_published: boolean;
+  published_at: string | null;
+};
 
 export function HeroSection() {
   return (
