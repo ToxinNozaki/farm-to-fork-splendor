@@ -379,6 +379,26 @@ export function AccommodationsSection() {
   );
 }
 
+export function InnPageContent() {
+  return (
+    <>
+      <PageIntro eyebrow="The Inn at Joseph Decuis" title="A restored Main Street inn steps from dinner." description="With four beautifully appointed guest rooms, a relaxing atmosphere, and breakfast, the Inn is ideal for romantic getaways and out-of-town guests dining at Joseph Decuis." />
+      <LodgingDetailSection image={innImage} imageAlt="The Inn at Joseph Decuis guest room" heading="Grandma's charm, preserved with modern comfort." body="Perched on the hillside of tree-lined Main Street, the 1912 Inn offers the slower pace of an earlier Roanoke, complete with a broad veranda, wicker furniture, hardwood floors, impressive moldings, antiques, and period furniture." items={innRooms} />
+      <ReservationPanel />
+    </>
+  );
+}
+
+export function FarmsteadPageContent() {
+  return (
+    <>
+      <PageIntro eyebrow="Farmstead Inn" title="Overnight on the farm in an authentic 1884 setting." description="The Joseph Decuis Farmstead Inn includes a restored Farm House, Carriage House, Barn, six bedrooms with private baths, a meeting Loft, and private dining space." />
+      <LodgingDetailSection image={farmsteadImage} imageAlt="Joseph Decuis Farmstead Inn" heading="A rural getaway six miles from the restaurant." body="A quiet getaway, corporate retreat, or wedding party stay can become a full farm experience: fine dining, world-class overnight comfort, farm chores, Wagyu cattle, gardening, animal husbandry, Percheron horses, and beautiful farm grounds." items={farmsteadSpaces} />
+      <ReservationPanel />
+    </>
+  );
+}
+
 export function ReservationPanel() {
   return (
     <section className="px-5 py-20 lg:px-8">
