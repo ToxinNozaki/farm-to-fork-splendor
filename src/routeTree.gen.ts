@@ -14,8 +14,12 @@ import { Route as StoryRouteImport } from './routes/story'
 import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as ReserveRouteImport } from './routes/reserve'
 import { Route as MenuRouteImport } from './routes/menu'
+import { Route as InnRouteImport } from './routes/inn'
+import { Route as FarmsteadRouteImport } from './routes/farmstead'
+import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AccommodationsRouteImport } from './routes/accommodations'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BlogManageRouteImport } from './routes/blog.manage'
 
 const WeddingsRoute = WeddingsRouteImport.update({
   id: '/weddings',
@@ -42,6 +46,21 @@ const MenuRoute = MenuRouteImport.update({
   path: '/menu',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InnRoute = InnRouteImport.update({
+  id: '/inn',
+  path: '/inn',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FarmsteadRoute = FarmsteadRouteImport.update({
+  id: '/farmstead',
+  path: '/farmstead',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogRoute = BlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AccommodationsRoute = AccommodationsRouteImport.update({
   id: '/accommodations',
   path: '/accommodations',
@@ -52,68 +71,100 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogManageRoute = BlogManageRouteImport.update({
+  id: '/manage',
+  path: '/manage',
+  getParentRoute: () => BlogRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/accommodations': typeof AccommodationsRoute
+  '/blog': typeof BlogRouteWithChildren
+  '/farmstead': typeof FarmsteadRoute
+  '/inn': typeof InnRoute
   '/menu': typeof MenuRoute
   '/reserve': typeof ReserveRoute
   '/reviews': typeof ReviewsRoute
   '/story': typeof StoryRoute
   '/weddings': typeof WeddingsRoute
+  '/blog/manage': typeof BlogManageRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/accommodations': typeof AccommodationsRoute
+  '/blog': typeof BlogRouteWithChildren
+  '/farmstead': typeof FarmsteadRoute
+  '/inn': typeof InnRoute
   '/menu': typeof MenuRoute
   '/reserve': typeof ReserveRoute
   '/reviews': typeof ReviewsRoute
   '/story': typeof StoryRoute
   '/weddings': typeof WeddingsRoute
+  '/blog/manage': typeof BlogManageRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/accommodations': typeof AccommodationsRoute
+  '/blog': typeof BlogRouteWithChildren
+  '/farmstead': typeof FarmsteadRoute
+  '/inn': typeof InnRoute
   '/menu': typeof MenuRoute
   '/reserve': typeof ReserveRoute
   '/reviews': typeof ReviewsRoute
   '/story': typeof StoryRoute
   '/weddings': typeof WeddingsRoute
+  '/blog/manage': typeof BlogManageRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/accommodations'
+    | '/blog'
+    | '/farmstead'
+    | '/inn'
     | '/menu'
     | '/reserve'
     | '/reviews'
     | '/story'
     | '/weddings'
+    | '/blog/manage'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/accommodations'
+    | '/blog'
+    | '/farmstead'
+    | '/inn'
     | '/menu'
     | '/reserve'
     | '/reviews'
     | '/story'
     | '/weddings'
+    | '/blog/manage'
   id:
     | '__root__'
     | '/'
     | '/accommodations'
+    | '/blog'
+    | '/farmstead'
+    | '/inn'
     | '/menu'
     | '/reserve'
     | '/reviews'
     | '/story'
     | '/weddings'
+    | '/blog/manage'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AccommodationsRoute: typeof AccommodationsRoute
+  BlogRoute: typeof BlogRouteWithChildren
+  FarmsteadRoute: typeof FarmsteadRoute
+  InnRoute: typeof InnRoute
   MenuRoute: typeof MenuRoute
   ReserveRoute: typeof ReserveRoute
   ReviewsRoute: typeof ReviewsRoute
@@ -158,6 +209,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MenuRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/inn': {
+      id: '/inn'
+      path: '/inn'
+      fullPath: '/inn'
+      preLoaderRoute: typeof InnRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/farmstead': {
+      id: '/farmstead'
+      path: '/farmstead'
+      fullPath: '/farmstead'
+      preLoaderRoute: typeof FarmsteadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog': {
+      id: '/blog'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof BlogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/accommodations': {
       id: '/accommodations'
       path: '/accommodations'
@@ -172,12 +244,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/manage': {
+      id: '/blog/manage'
+      path: '/manage'
+      fullPath: '/blog/manage'
+      preLoaderRoute: typeof BlogManageRouteImport
+      parentRoute: typeof BlogRoute
+    }
   }
 }
+
+interface BlogRouteChildren {
+  BlogManageRoute: typeof BlogManageRoute
+}
+
+const BlogRouteChildren: BlogRouteChildren = {
+  BlogManageRoute: BlogManageRoute,
+}
+
+const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AccommodationsRoute: AccommodationsRoute,
+  BlogRoute: BlogRouteWithChildren,
+  FarmsteadRoute: FarmsteadRoute,
+  InnRoute: InnRoute,
   MenuRoute: MenuRoute,
   ReserveRoute: ReserveRoute,
   ReviewsRoute: ReviewsRoute,
@@ -187,3 +279,12 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
