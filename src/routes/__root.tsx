@@ -2,6 +2,7 @@ import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/r
 import { MapPin, Phone, Star } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import josephDecuisLogo from "@/assets/joseph-decuis-logo.png";
 import appCss from "../styles.css?url";
 
 function NotFoundComponent() {
@@ -49,6 +50,11 @@ export const Route = createRootRoute({
     ],
     links: [
       {
+        rel: "icon",
+        type: "image/png",
+        href: josephDecuisLogo,
+      },
+      {
         rel: "stylesheet",
         href: appCss,
       },
@@ -87,9 +93,11 @@ function SiteHeader() {
     <header className="sticky top-0 z-50 border-b border-border bg-background/82 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 lg:px-8">
         <Link to="/" className="group flex min-w-0 items-center gap-3">
-          <span className="flex h-10 w-10 items-center justify-center rounded-md border border-primary/40 bg-secondary font-display text-lg text-primary transition-transform group-hover:-translate-y-0.5">
-            JD
-          </span>
+          <img
+            src={josephDecuisLogo}
+            alt="Joseph Decuis logo"
+            className="h-10 w-24 object-contain transition-transform group-hover:-translate-y-0.5"
+          />
           <span className="min-w-0">
             <span className="block font-display text-xl leading-none text-foreground">Joseph Decuis</span>
             <span className="block truncate text-xs text-muted-foreground">Roanoke, Indiana</span>
