@@ -33,13 +33,19 @@ export const Route = createRootRoute({
           "Reserve an intimate farm-to-table dinner at Joseph Decuis, Roanoke's luxurious American restaurant for Wagyu steaks and seasonal cuisine.",
       },
       { name: "author", content: "Joseph Decuis" },
-      { property: "og:title", content: "Joseph Decuis | Luxury Wagyu Dining" },
+      { property: "og:title", content: "Joseph Decuis | Luxury Wagyu Dining in Roanoke" },
       {
         property: "og:description",
         content: "Upscale American dining, farm-raised Wagyu, candlelit service, and seasonal tasting experiences in Roanoke, Indiana.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Joseph Decuis | Luxury Wagyu Dining in Roanoke" },
+      { name: "description", content: "Decuis Digital Experience is a luxurious website designed to attract new customers and increase sales for an upscale American restaurant." },
+      { property: "og:description", content: "Decuis Digital Experience is a luxurious website designed to attract new customers and increase sales for an upscale American restaurant." },
+      { name: "twitter:description", content: "Decuis Digital Experience is a luxurious website designed to attract new customers and increase sales for an upscale American restaurant." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/1b5bf71b-a33d-4bb0-a4aa-d87ab723d687/id-preview-78a10a3b--c41ae884-62ef-452d-885f-aa22117882f8.lovable.app-1776817136119.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/1b5bf71b-a33d-4bb0-a4aa-d87ab723d687/id-preview-78a10a3b--c41ae884-62ef-452d-885f-aa22117882f8.lovable.app-1776817136119.png" },
     ],
     links: [
       {
