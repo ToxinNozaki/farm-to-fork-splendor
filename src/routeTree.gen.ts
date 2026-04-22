@@ -14,6 +14,7 @@ import { Route as StoryRouteImport } from './routes/story'
 import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as ReserveRouteImport } from './routes/reserve'
 import { Route as MenuRouteImport } from './routes/menu'
+import { Route as AccommodationsRouteImport } from './routes/accommodations'
 import { Route as IndexRouteImport } from './routes/index'
 
 const WeddingsRoute = WeddingsRouteImport.update({
@@ -41,6 +42,11 @@ const MenuRoute = MenuRouteImport.update({
   path: '/menu',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AccommodationsRoute = AccommodationsRouteImport.update({
+  id: '/accommodations',
+  path: '/accommodations',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -49,6 +55,7 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/accommodations': typeof AccommodationsRoute
   '/menu': typeof MenuRoute
   '/reserve': typeof ReserveRoute
   '/reviews': typeof ReviewsRoute
@@ -57,6 +64,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/accommodations': typeof AccommodationsRoute
   '/menu': typeof MenuRoute
   '/reserve': typeof ReserveRoute
   '/reviews': typeof ReviewsRoute
@@ -66,6 +74,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/accommodations': typeof AccommodationsRoute
   '/menu': typeof MenuRoute
   '/reserve': typeof ReserveRoute
   '/reviews': typeof ReviewsRoute
@@ -74,12 +83,27 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/menu' | '/reserve' | '/reviews' | '/story' | '/weddings'
+  fullPaths:
+    | '/'
+    | '/accommodations'
+    | '/menu'
+    | '/reserve'
+    | '/reviews'
+    | '/story'
+    | '/weddings'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/menu' | '/reserve' | '/reviews' | '/story' | '/weddings'
+  to:
+    | '/'
+    | '/accommodations'
+    | '/menu'
+    | '/reserve'
+    | '/reviews'
+    | '/story'
+    | '/weddings'
   id:
     | '__root__'
     | '/'
+    | '/accommodations'
     | '/menu'
     | '/reserve'
     | '/reviews'
@@ -89,6 +113,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AccommodationsRoute: typeof AccommodationsRoute
   MenuRoute: typeof MenuRoute
   ReserveRoute: typeof ReserveRoute
   ReviewsRoute: typeof ReviewsRoute
@@ -133,6 +158,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MenuRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/accommodations': {
+      id: '/accommodations'
+      path: '/accommodations'
+      fullPath: '/accommodations'
+      preLoaderRoute: typeof AccommodationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -145,6 +177,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AccommodationsRoute: AccommodationsRoute,
   MenuRoute: MenuRoute,
   ReserveRoute: ReserveRoute,
   ReviewsRoute: ReviewsRoute,

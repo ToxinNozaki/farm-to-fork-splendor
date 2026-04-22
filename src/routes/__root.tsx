@@ -79,6 +79,7 @@ function SiteHeader() {
     { to: "/menu" as const, label: "Menu" },
     { to: "/story" as const, label: "Story" },
     { to: "/weddings" as const, label: "Weddings" },
+    { to: "/accommodations" as const, label: "Accommodations" },
     { to: "/reviews" as const, label: "Reviews" },
   ];
 
@@ -106,6 +107,12 @@ function SiteHeader() {
               {item.label}
             </Link>
           ))}
+          <a
+            href="https://josephdecuis.securetree.com/"
+            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Gift Cards
+          </a>
         </nav>
         <Button asChild variant="luxury" size="sm">
           <Link to="/reserve">Reserve</Link>

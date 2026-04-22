@@ -6,6 +6,8 @@ import steakImage from "@/assets/joseph-decuis-real-steak.jpg";
 import diningRoomImage from "@/assets/joseph-decuis-dining-room.jpg";
 import weddingFarmImage from "@/assets/joseph-decuis-wedding-farm.png";
 import weddingReceptionImage from "@/assets/joseph-decuis-wedding-reception.png";
+import innImage from "@/assets/joseph-decuis-inn.png";
+import farmsteadImage from "@/assets/joseph-decuis-farmstead.png";
 
 const highlights = [
   { icon: Leaf, label: "Farm-raised Wagyu", detail: "Sourced from the Joseph Decuis farm" },
@@ -305,6 +307,57 @@ export function ReservationPolicySection() {
   );
 }
 
+export function AccommodationsSection() {
+  const inns = [
+    {
+      name: "The Inn at Joseph Decuis",
+      image: innImage,
+      description: "A meticulously restored 1910 home in Roanoke, within walking distance of the restaurant, with four rooms appointed in period furniture and decor.",
+      href: "https://josephdecuis.com/inn/",
+    },
+    {
+      name: "The Joseph Decuis Farmstead Inn",
+      image: farmsteadImage,
+      description: "A bed and breakfast six miles from the restaurant on the Wagyu farm, with a restored 1884 Farmhouse, Carriage House, Barn, six private-bath bedrooms, a loft, and private dining.",
+      href: "https://josephdecuis.com/farmstead",
+    },
+  ];
+
+  return (
+    <section className="border-y border-border bg-card/30 px-5 py-20 lg:px-8">
+      <div className="mx-auto max-w-7xl">
+        <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
+          <div>
+            <p className="text-sm uppercase tracking-[0.26em] text-primary">Overnight accommodations</p>
+            <h2 className="mt-4 font-display text-5xl leading-tight text-foreground">Stay close to the table.</h2>
+            <p className="mt-5 text-base leading-7 text-muted-foreground">
+              Extend the Joseph Decuis experience with two intimate inns: one downtown near the restaurant, and one on the farm where the Wagyu story begins.
+            </p>
+            <div className="mt-8 grid gap-4 text-sm text-muted-foreground sm:grid-cols-2">
+              <p className="flex items-center gap-3"><Phone className="size-5 text-primary" /> Book by calling (260) 672-1715</p>
+              <p className="flex items-center gap-3"><Sparkles className="size-5 text-primary" /> Rooms from $200 per night</p>
+            </div>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {inns.map((inn) => (
+              <article key={inn.name} className="overflow-hidden rounded-lg border border-border bg-background/55">
+                <img src={inn.image} alt={inn.name} className="aspect-[4/3] w-full object-cover" loading="lazy" />
+                <div className="p-6">
+                  <h3 className="font-display text-2xl text-foreground">{inn.name}</h3>
+                  <p className="mt-3 text-sm leading-6 text-muted-foreground">{inn.description}</p>
+                  <Button asChild variant="reserve" className="mt-5">
+                    <a href={inn.href} target="_blank" rel="noreferrer">View inn <ArrowRight /></a>
+                  </Button>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function ReservationPanel() {
   return (
     <section className="px-5 py-20 lg:px-8">
@@ -346,9 +399,7 @@ export function HomePageContent() {
     <>
       <HeroSection />
       <HighlightsSection />
-      <MenuPreviewSection />
       <ExperienceSection />
-      <WeddingsSection />
       <ReviewsSection />
       <ReservationPolicySection />
       <ReservationPanel />
@@ -381,6 +432,16 @@ export function WeddingsPageContent() {
     <>
       <PageIntro eyebrow="Weddings" title="Weddings, receptions, and private celebrations at Joseph Decuis." description="The Joseph Decuis Farm setting brings a refined farm-to-fork sense of occasion to ceremonies, receptions, rehearsal dinners, and private events." />
       <WeddingsSection />
+      <ReservationPanel />
+    </>
+  );
+}
+
+export function AccommodationsPageContent() {
+  return (
+    <>
+      <PageIntro eyebrow="Accommodations" title="Overnight stays at Joseph Decuis." description="Choose the downtown Inn at Joseph Decuis or the Farmstead Inn on the Wagyu farm for a refined overnight extension of dinner in Roanoke." />
+      <AccommodationsSection />
       <ReservationPanel />
     </>
   );
