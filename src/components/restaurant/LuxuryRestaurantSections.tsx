@@ -245,6 +245,66 @@ export function ReviewsSection() {
   );
 }
 
+export function WeddingsSection() {
+  return (
+    <section className="px-5 py-20 lg:px-8">
+      <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+        <div>
+          <p className="text-sm uppercase tracking-[0.26em] text-primary">Weddings & receptions</p>
+          <h2 className="mt-4 font-display text-5xl leading-tight text-foreground">A farm dressed in a tuxedo.</h2>
+          <p className="mt-5 text-base leading-7 text-muted-foreground">
+            Joseph Decuis Farm offers spectacular settings for weddings, receptions, rehearsal dinners, corporate events, charitable fundraisers, family parties, tours, farm-to-fork dinners, and chef events.
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Button asChild variant="luxury">
+              <a href="tel:12606721715">Call for wedding details</a>
+            </Button>
+            <Button asChild variant="reserve">
+              <a href="https://josephdecuis.com/booking" target="_blank" rel="noreferrer">Request a room</a>
+            </Button>
+          </div>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2">
+          {[weddingFarmImage, weddingReceptionImage].map((image, index) => (
+            <img
+              key={index}
+              src={image}
+              alt={index === 0 ? "Joseph Decuis Farm wedding setting" : "Joseph Decuis wedding reception setting"}
+              className="aspect-[4/5] w-full rounded-lg border border-border object-cover"
+              loading="lazy"
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function ReservationPolicySection() {
+  return (
+    <section className="border-y border-border bg-card/30 px-5 py-20 lg:px-8">
+      <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-3">
+        <div className="md:col-span-1">
+          <p className="text-sm uppercase tracking-[0.26em] text-primary">Reservation policy</p>
+          <h2 className="mt-4 font-display text-5xl leading-tight text-foreground">Hours of operation.</h2>
+        </div>
+        <div className="grid gap-4 md:col-span-2 sm:grid-cols-2">
+          <div className="luxury-panel rounded-lg border border-border p-6">
+            <h3 className="font-display text-2xl text-foreground">Restaurant</h3>
+            <p className="mt-4 text-sm leading-6 text-muted-foreground">Reservations preferred. Open Wednesday through Saturday evenings with reservations available 5:00–8:00 PM.</p>
+            <p className="mt-4 text-sm text-foreground">Call 260-672-1715 for reservations or inquiries.</p>
+          </div>
+          <div className="luxury-panel rounded-lg border border-border p-6">
+            <h3 className="font-display text-2xl text-foreground">Emporium</h3>
+            <p className="mt-4 text-sm leading-6 text-muted-foreground">Open Tuesday through Saturday, 10:00 AM–5:30 PM.</p>
+            <p className="mt-4 text-sm leading-6 text-muted-foreground">Lunch served Wednesday through Friday 10:00 AM–2:00 PM, and Saturday until 3:00 PM.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function ReservationPanel() {
   return (
     <section className="px-5 py-20 lg:px-8">
