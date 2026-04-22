@@ -2,7 +2,8 @@ import { Link } from "@tanstack/react-router";
 import { ArrowRight, CalendarCheck, ChefHat, Clock, Leaf, MapPin, Phone, Quote, Sparkles, Star, UtensilsCrossed, Wine } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import heroImage from "@/assets/joseph-decuis-candlelit-wagyu.jpg";
+import steakImage from "@/assets/joseph-decuis-real-steak.jpg";
+import diningRoomImage from "@/assets/joseph-decuis-dining-room.jpg";
 
 const highlights = [
   { icon: Leaf, label: "Farm-raised Wagyu", detail: "Sourced from the Joseph Decuis farm" },
@@ -31,11 +32,11 @@ export function HeroSection() {
   return (
     <section className="relative isolate min-h-[calc(100vh-73px)] overflow-hidden">
       <img
-        src={heroImage}
-        alt="Candlelit Joseph Decuis Wagyu steak dinner in an elegant dining room"
+        src={steakImage}
+        alt="Plated Joseph Decuis steak with sauce and seasonal garnish"
         className="absolute inset-0 -z-20 h-full w-full object-cover"
-        width={1600}
-        height={1000}
+        width={234}
+        height={314}
       />
       <div className="absolute inset-0 -z-10 bg-[image:var(--gradient-hero)]" />
       <div className="candle-flicker absolute left-1/4 top-24 -z-10 h-48 w-48 rounded-full bg-candle/20 blur-3xl" />
@@ -121,12 +122,12 @@ export function ExperienceSection() {
       <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
         <div className="relative overflow-hidden rounded-lg border border-border">
           <img
-            src={heroImage}
-            alt="Elegant plated Wagyu steak with candlelit restaurant ambience"
+            src={diningRoomImage}
+            alt="Joseph Decuis dining room with warm lighting and white tablecloths"
             className="aspect-[4/3] w-full object-cover transition-transform duration-700 hover:scale-105"
             loading="lazy"
-            width={1600}
-            height={1000}
+            width={170}
+            height={127}
           />
         </div>
         <div>

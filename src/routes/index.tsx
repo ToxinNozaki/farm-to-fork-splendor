@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import heroImage from "@/assets/joseph-decuis-candlelit-wagyu.jpg";
+import heroImage from "@/assets/joseph-decuis-real-steak.jpg";
 import { HomePageContent } from "@/components/restaurant/LuxuryRestaurantSections";
 
 export const Route = createFileRoute("/")({
