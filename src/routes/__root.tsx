@@ -86,7 +86,6 @@ function SiteHeader() {
     { to: "/story" as const, label: "Story" },
     { to: "/weddings" as const, label: "Weddings" },
     { to: "/accommodations" as const, label: "Accommodations" },
-    { to: "/blog" as const, label: "Blog" },
     { to: "/reviews" as const, label: "Reviews" },
   ];
 
