@@ -4,6 +4,8 @@ import { ArrowRight, CalendarCheck, ChefHat, Clock, Leaf, MapPin, Phone, Quote, 
 import { Button } from "@/components/ui/button";
 import steakImage from "@/assets/joseph-decuis-real-steak.jpg";
 import diningRoomImage from "@/assets/joseph-decuis-dining-room.jpg";
+import weddingFarmImage from "@/assets/joseph-decuis-wedding-farm.png";
+import weddingReceptionImage from "@/assets/joseph-decuis-wedding-reception.png";
 
 const highlights = [
   { icon: Leaf, label: "Farm-raised Wagyu", detail: "Sourced from the Joseph Decuis farm" },
@@ -11,15 +13,69 @@ const highlights = [
   { icon: ChefHat, label: "Seasonal American", detail: "Elegant entrées built around peak ingredients" },
 ];
 
-const signatureDishes = [
-  "Joseph Decuis Farm Wagyu Steaks",
-  "Wagyu Tartare",
-  "Bone Marrow Appetizer",
-  "Charcuterie Board",
-  "Scallops",
-  "Beet Salad",
-  "Octopus",
-  "Bourbon Pecan Chocolate Cake",
+const menuSections = [
+  {
+    title: "Appetizers",
+    items: [
+      { name: "Focaccia", price: "$8", description: "Wagyu tallow candle (V)" },
+      { name: "Wagyu Tartar", price: "$30", description: "Gaufrettes, quail egg (GF)(DF)" },
+      { name: "Hummus Board", price: "$12", description: "Olives, feta, chili oil, house sourdough crackers (V)(GFO)" },
+      { name: "Oysters Bienville (3)", price: "$18", description: "Blue Points, shrimp, mushrooms, cream, Parmesan" },
+      { name: "Charcuterie Board", price: "$26", description: "House cured Wagyu & Mangalitsa sausages, assorted cheeses and accompaniments (GFO)" },
+    ],
+  },
+  {
+    title: "Soups & Salads",
+    items: [
+      { name: "Carrot Ginger Bisque", price: "$12", description: "Goat cheese cream, focaccia croutons (V)(GFO)" },
+      { name: "Lovely Salad", price: "$12", description: "Mixed greens, goat cheese, Marcona almonds, raspberry vinaigrette (V)(GF)(VGO)" },
+      { name: "Seafood Gumbo", price: "$16", description: "A Joseph Decuis classic: shrimp, crab, peppers, onion, tomato, okra, rice & scallions" },
+      { name: "Farm Kale Salad", price: "$12", description: "Warm bacon dressing, chickpeas, candied pecans, Parmesan (GF)(DFO)" },
+      { name: "Farm Salad", price: "$10", description: "Mixed greens, carrots, radish, apple cider vinaigrette (GF)(VG)" },
+    ],
+  },
+  {
+    title: "Entrées",
+    items: [
+      { name: "100% Full Blood Wagyu Steaks", price: "$MKT", description: "Robuchon potatoes, seasonal vegetables (GF). Price determined by cut." },
+      { name: "Wagyu Flank Involtini", price: "$65", description: "Panko, currants, sunflower seeds, marinara sauce, fried polenta, broccoli rabe" },
+      { name: "Herbed Fettuccine Primavera", price: "$24", description: "Seasonal vegetables, pesto butter sauce (V)" },
+      { name: "North Atlantic Salmon", price: "$40", description: "Lemon caper butter sauce, spring pea risotto (GF)" },
+      { name: "Grilled Lamb Pops", price: "$45", description: "Chimichurri, creamy polenta, confit tomatoes, goat cheese salad (GFO)" },
+      { name: "Coq au Vin", price: "$38", description: "Hoffman farm chicken leg quarter, rich gravy, Robuchon potatoes, carrots, mushrooms (GFO)" },
+    ],
+  },
+  {
+    title: "Desserts",
+    items: [
+      { name: "Chocolate Bourbon Pecan Cake", price: "$12", description: "Flourless chocolate cake, crème anglaise, whipped cream (GF)" },
+      { name: "Orange Dreamcicle Crème Brûlée", price: "$12", description: "(V)(GF)" },
+      { name: "Seasonal Sorbet", price: "$8", description: "(VG)(GF)" },
+      { name: "Bananas Foster", price: "$12", description: "Vanilla ice cream (V)(GF)" },
+    ],
+  },
+  {
+    title: "Ports",
+    items: [
+      { name: "Blandys Madeira 5 Year", price: "$8", description: "" },
+      { name: "Ramos Pinto LBV 2012", price: "$20", description: "" },
+      { name: "Ramos Pinto 10 Year Tawny", price: "$11", description: "" },
+      { name: "Ramos Pinto 20 Year Tawny", price: "$18", description: "" },
+      { name: "Quinta do Tedo", price: "$10", description: "" },
+      { name: "Quinta do Tedo Reserve", price: "$16", description: "" },
+      { name: "Sandemans Founders Reserve Ruby", price: "$10", description: "" },
+      { name: "Sandeman 30 Year", price: "$29", description: "" },
+      { name: "Sandeman 40 Year", price: "$42", description: "" },
+      { name: "Zinfandel", price: "$9", description: "" },
+    ],
+  },
+  {
+    title: "Espresso & Coffee",
+    items: [
+      { name: "Espresso Martini", price: "$13", description: "" },
+      { name: "Joseph Decuis Signature Blend Coffee", price: "$2.50", description: "" },
+    ],
+  },
 ];
 
 const reviews = [
@@ -92,23 +148,30 @@ export function HighlightsSection() {
 export function MenuPreviewSection() {
   return (
     <section className="border-y border-border bg-card/30 px-5 py-20 lg:px-8">
-      <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
+      <div className="mx-auto max-w-7xl">
         <div>
-          <p className="text-sm uppercase tracking-[0.26em] text-primary">Menu highlights</p>
-          <h2 className="mt-4 font-display text-5xl leading-tight text-foreground">Built around the farm, finished for the table.</h2>
-          <p className="mt-5 text-base leading-7 text-muted-foreground">
-            The experience centers on Joseph Decuis Farm Wagyu, seasonal entrées, and polished starters designed for guests ready to celebrate.
+          <p className="text-sm uppercase tracking-[0.26em] text-primary">Spring 2026 market menu</p>
+          <h2 className="mt-4 max-w-4xl font-display text-5xl leading-tight text-foreground">Built around the farm, finished for the table.</h2>
+          <p className="mt-5 max-w-3xl text-base leading-7 text-muted-foreground">
+            Open Wednesday through Saturday nights. Dietary notes: (V) vegetarian, (VG) vegan, (GF) gluten free, (DF) dairy free, with options noted on select dishes.
           </p>
-          <Button asChild variant="luxury" className="mt-8">
-            <Link to="/menu">Explore menu</Link>
-          </Button>
         </div>
-        <div className="grid gap-3 sm:grid-cols-2">
-          {signatureDishes.map((dish, index) => (
-            <div key={dish} className="rounded-lg border border-border bg-background/55 p-5 backdrop-blur transition-colors hover:border-primary/60">
-              <p className="text-xs text-primary">{String(index + 1).padStart(2, "0")}</p>
-              <h3 className="mt-3 font-display text-xl text-foreground">{dish}</h3>
-            </div>
+        <div className="mt-10 grid gap-5 lg:grid-cols-2">
+          {menuSections.map((section) => (
+            <article key={section.title} className="rounded-lg border border-border bg-background/55 p-6 backdrop-blur">
+              <h3 className="font-display text-3xl text-primary">{section.title}</h3>
+              <div className="mt-5 space-y-5">
+                {section.items.map((item) => (
+                  <div key={`${section.title}-${item.name}`} className="border-t border-border pt-4 first:border-t-0 first:pt-0">
+                    <div className="flex items-start justify-between gap-4">
+                      <p className="font-display text-xl text-foreground">{item.name}</p>
+                      <p className="shrink-0 text-sm font-semibold text-primary">{item.price}</p>
+                    </div>
+                    {item.description ? <p className="mt-2 text-sm leading-6 text-muted-foreground">{item.description}</p> : null}
+                  </div>
+                ))}
+              </div>
+            </article>
           ))}
         </div>
       </div>
@@ -182,6 +245,66 @@ export function ReviewsSection() {
   );
 }
 
+export function WeddingsSection() {
+  return (
+    <section className="px-5 py-20 lg:px-8">
+      <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+        <div>
+          <p className="text-sm uppercase tracking-[0.26em] text-primary">Weddings & receptions</p>
+          <h2 className="mt-4 font-display text-5xl leading-tight text-foreground">A farm dressed in a tuxedo.</h2>
+          <p className="mt-5 text-base leading-7 text-muted-foreground">
+            Joseph Decuis Farm offers spectacular settings for weddings, receptions, rehearsal dinners, corporate events, charitable fundraisers, family parties, tours, farm-to-fork dinners, and chef events.
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Button asChild variant="luxury">
+              <a href="tel:12606721715">Call for wedding details</a>
+            </Button>
+            <Button asChild variant="reserve">
+              <a href="https://josephdecuis.com/booking" target="_blank" rel="noreferrer">Request a room</a>
+            </Button>
+          </div>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2">
+          {[weddingFarmImage, weddingReceptionImage].map((image, index) => (
+            <img
+              key={index}
+              src={image}
+              alt={index === 0 ? "Joseph Decuis Farm wedding setting" : "Joseph Decuis wedding reception setting"}
+              className="aspect-[4/5] w-full rounded-lg border border-border object-cover"
+              loading="lazy"
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function ReservationPolicySection() {
+  return (
+    <section className="border-y border-border bg-card/30 px-5 py-20 lg:px-8">
+      <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-3">
+        <div className="md:col-span-1">
+          <p className="text-sm uppercase tracking-[0.26em] text-primary">Reservation policy</p>
+          <h2 className="mt-4 font-display text-5xl leading-tight text-foreground">Hours of operation.</h2>
+        </div>
+        <div className="grid gap-4 md:col-span-2 sm:grid-cols-2">
+          <div className="luxury-panel rounded-lg border border-border p-6">
+            <h3 className="font-display text-2xl text-foreground">Restaurant</h3>
+            <p className="mt-4 text-sm leading-6 text-muted-foreground">Reservations preferred. Open Wednesday through Saturday evenings with reservations available 5:00–8:00 PM.</p>
+            <p className="mt-4 text-sm text-foreground">Call 260-672-1715 for reservations or inquiries.</p>
+          </div>
+          <div className="luxury-panel rounded-lg border border-border p-6">
+            <h3 className="font-display text-2xl text-foreground">Emporium</h3>
+            <p className="mt-4 text-sm leading-6 text-muted-foreground">Open Tuesday through Saturday, 10:00 AM–5:30 PM.</p>
+            <p className="mt-4 text-sm leading-6 text-muted-foreground">Lunch served Wednesday through Friday 10:00 AM–2:00 PM, and Saturday until 3:00 PM.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function ReservationPanel() {
   return (
     <section className="px-5 py-20 lg:px-8">
@@ -225,7 +348,9 @@ export function HomePageContent() {
       <HighlightsSection />
       <MenuPreviewSection />
       <ExperienceSection />
+      <WeddingsSection />
       <ReviewsSection />
+      <ReservationPolicySection />
       <ReservationPanel />
     </>
   );
@@ -251,6 +376,16 @@ export function StoryPageContent() {
   );
 }
 
+export function WeddingsPageContent() {
+  return (
+    <>
+      <PageIntro eyebrow="Weddings" title="Weddings, receptions, and private celebrations at Joseph Decuis." description="The Joseph Decuis Farm setting brings a refined farm-to-fork sense of occasion to ceremonies, receptions, rehearsal dinners, and private events." />
+      <WeddingsSection />
+      <ReservationPanel />
+    </>
+  );
+}
+
 export function ReviewsPageContent() {
   return (
     <>
@@ -265,6 +400,7 @@ export function ReservePageContent() {
   return (
     <>
       <PageIntro eyebrow="Reserve" title="Book a table for Joseph Decuis." description="Dinner is served Wednesday through Saturday from 5–7:30 PM. Reserve early for the best availability." />
+      <ReservationPolicySection />
       <ReservationPanel />
     </>
   );
