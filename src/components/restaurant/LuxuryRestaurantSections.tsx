@@ -255,6 +255,14 @@ export function ReviewsSection() {
             </blockquote>
           ))}
         </div>
+        <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+          <Button asChild variant="luxury">
+            <a href="https://www.yelp.com/biz/joseph-decuis-roanoke" target="_blank" rel="noreferrer">Leave a review <ExternalLink /></a>
+          </Button>
+          <Button asChild variant="reserve">
+            <a href="https://www.yelp.com/biz/joseph-decuis-roanoke" target="_blank" rel="noreferrer">Read more reviews <ArrowRight /></a>
+          </Button>
+        </div>
       </div>
     </section>
   );
@@ -275,7 +283,7 @@ export function WeddingsSection() {
               <a href="tel:12606721715">Call for wedding details</a>
             </Button>
             <Button asChild variant="reserve">
-              <a href="https://josephdecuis.com/booking" target="_blank" rel="noreferrer">Request a room</a>
+              <Link to="/accommodations">Request a room</Link>
             </Button>
           </div>
         </div>
@@ -326,13 +334,13 @@ export function AccommodationsSection() {
       name: "The Inn at Joseph Decuis",
       image: innImage,
       description: "A meticulously restored 1910 home in Roanoke, within walking distance of the restaurant, with four rooms appointed in period furniture and decor.",
-      href: "https://josephdecuis.com/inn/",
+      href: "/inn" as const,
     },
     {
       name: "The Joseph Decuis Farmstead Inn",
       image: farmsteadImage,
       description: "A bed and breakfast six miles from the restaurant on the Wagyu farm, with a restored 1884 Farmhouse, Carriage House, Barn, six private-bath bedrooms, a loft, and private dining.",
-      href: "https://josephdecuis.com/farmstead",
+      href: "/farmstead" as const,
     },
   ];
 
@@ -359,7 +367,7 @@ export function AccommodationsSection() {
                   <h3 className="font-display text-2xl text-foreground">{inn.name}</h3>
                   <p className="mt-3 text-sm leading-6 text-muted-foreground">{inn.description}</p>
                   <Button asChild variant="reserve" className="mt-5">
-                    <a href={inn.href} target="_blank" rel="noreferrer">View inn <ArrowRight /></a>
+                    <Link to={inn.href}>View inn <ArrowRight /></Link>
                   </Button>
                 </div>
               </article>
