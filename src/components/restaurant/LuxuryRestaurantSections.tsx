@@ -348,7 +348,9 @@ export function HomePageContent() {
       <HighlightsSection />
       <MenuPreviewSection />
       <ExperienceSection />
+      <WeddingsSection />
       <ReviewsSection />
+      <ReservationPolicySection />
       <ReservationPanel />
     </>
   );
@@ -374,6 +376,16 @@ export function StoryPageContent() {
   );
 }
 
+export function WeddingsPageContent() {
+  return (
+    <>
+      <PageIntro eyebrow="Weddings" title="Weddings, receptions, and private celebrations at Joseph Decuis." description="The Joseph Decuis Farm setting brings a refined farm-to-fork sense of occasion to ceremonies, receptions, rehearsal dinners, and private events." />
+      <WeddingsSection />
+      <ReservationPanel />
+    </>
+  );
+}
+
 export function ReviewsPageContent() {
   return (
     <>
@@ -388,6 +400,7 @@ export function ReservePageContent() {
   return (
     <>
       <PageIntro eyebrow="Reserve" title="Book a table for Joseph Decuis." description="Dinner is served Wednesday through Saturday from 5–7:30 PM. Reserve early for the best availability." />
+      <ReservationPolicySection />
       <ReservationPanel />
     </>
   );
