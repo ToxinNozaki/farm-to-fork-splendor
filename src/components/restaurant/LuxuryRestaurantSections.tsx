@@ -1,7 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, CalendarCheck, ChefHat, Clock, Leaf, MapPin, Phone, Quote, Sparkles, Star, UtensilsCrossed, Wine } from "lucide-react";
+import { ArrowRight, CalendarCheck, ChefHat, Clock, ExternalLink, Leaf, MapPin, Phone, Quote, Sparkles, Star, UtensilsCrossed, Wine } from "lucide-react";
+import { useEffect, useState, type FormEvent } from "react";
 
 import { Button } from "@/components/ui/button";
+import { supabase } from "@/integrations/supabase/client";
 import steakImage from "@/assets/joseph-decuis-main-steak.jpg";
 import diningRoomImage from "@/assets/joseph-decuis-dining-room.jpg";
 import weddingFarmImage from "@/assets/joseph-decuis-wedding-farm.png";
@@ -85,6 +87,30 @@ const reviews = [
   "People like me have no problem paying for a quality dining experience.",
   "This is my all-time favorite restaurant; spectacular food, service and ambience.",
 ];
+
+const innRooms = [
+  { name: "The Master Suite", description: "A spacious king suite with a large private bathroom, walk-in shower and tub, separate dressing room, Victorian fainting couch, and antique dressing table." },
+  { name: "Sedorah", description: "A garden-like guest room with a comfortable queen-size bed and private bathroom." },
+  { name: "Happy Repose", description: "A fresh, restful room with a full-size bed and private bathroom." },
+  { name: "Good Company", description: "A getaway room made for two guests, featuring twin beds and a private bathroom." },
+];
+
+const farmsteadSpaces = [
+  { name: "Carriage House", description: "Home to the Decuis Suite with a private living room, wood-burning stove, two bedrooms, the panoramic Loft for meetings and receptions, and Garden Suites with a screened-in porch." },
+  { name: "Farm House", description: "The restored 1884 home includes bedrooms with private baths, an 1884-style kitchen, formal dining room, sitting room, chef's kitchen, wine cellar, and root cellar massage room." },
+  { name: "The Barn", description: "The farm nursery where Mangalitza pigs, chickens, rabbits, goats, turkeys, and miniature horses introduce guests to farm life and where food comes from." },
+];
+
+type BlogPost = {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: string;
+  author_name: string;
+  is_published: boolean;
+  published_at: string | null;
+};
 
 export function HeroSection() {
   return (
@@ -242,6 +268,14 @@ export function ReviewsSection() {
             </blockquote>
           ))}
         </div>
+        <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+          <Button asChild variant="luxury">
+            <a href="https://www.yelp.com/biz/joseph-decuis-roanoke" target="_blank" rel="noreferrer">Leave a review <ExternalLink /></a>
+          </Button>
+          <Button asChild variant="reserve">
+            <a href="https://www.yelp.com/biz/joseph-decuis-roanoke" target="_blank" rel="noreferrer">Read more reviews <ArrowRight /></a>
+          </Button>
+        </div>
       </div>
     </section>
   );
@@ -262,7 +296,7 @@ export function WeddingsSection() {
               <a href="tel:12606721715">Call for wedding details</a>
             </Button>
             <Button asChild variant="reserve">
-              <a href="https://josephdecuis.com/booking" target="_blank" rel="noreferrer">Request a room</a>
+              <Link to="/accommodations">Request a room</Link>
             </Button>
           </div>
         </div>
@@ -313,13 +347,13 @@ export function AccommodationsSection() {
       name: "The Inn at Joseph Decuis",
       image: innImage,
       description: "A meticulously restored 1910 home in Roanoke, within walking distance of the restaurant, with four rooms appointed in period furniture and decor.",
-      href: "https://josephdecuis.com/inn/",
+      href: "/inn" as const,
     },
     {
       name: "The Joseph Decuis Farmstead Inn",
       image: farmsteadImage,
       description: "A bed and breakfast six miles from the restaurant on the Wagyu farm, with a restored 1884 Farmhouse, Carriage House, Barn, six private-bath bedrooms, a loft, and private dining.",
-      href: "https://josephdecuis.com/farmstead",
+      href: "/farmstead" as const,
     },
   ];
 
@@ -346,7 +380,7 @@ export function AccommodationsSection() {
                   <h3 className="font-display text-2xl text-foreground">{inn.name}</h3>
                   <p className="mt-3 text-sm leading-6 text-muted-foreground">{inn.description}</p>
                   <Button asChild variant="reserve" className="mt-5">
-                    <a href={inn.href} target="_blank" rel="noreferrer">View inn <ArrowRight /></a>
+                    <Link to={inn.href}>View inn <ArrowRight /></Link>
                   </Button>
                 </div>
               </article>
@@ -355,6 +389,26 @@ export function AccommodationsSection() {
         </div>
       </div>
     </section>
+  );
+}
+
+export function InnPageContent() {
+  return (
+    <>
+      <PageIntro eyebrow="The Inn at Joseph Decuis" title="A restored Main Street inn steps from dinner." description="With four beautifully appointed guest rooms, a relaxing atmosphere, and breakfast, the Inn is ideal for romantic getaways and out-of-town guests dining at Joseph Decuis." />
+      <LodgingDetailSection image={innImage} imageAlt="The Inn at Joseph Decuis guest room" heading="Grandma's charm, preserved with modern comfort." body="Perched on the hillside of tree-lined Main Street, the 1912 Inn offers the slower pace of an earlier Roanoke, complete with a broad veranda, wicker furniture, hardwood floors, impressive moldings, antiques, and period furniture." items={innRooms} />
+      <ReservationPanel />
+    </>
+  );
+}
+
+export function FarmsteadPageContent() {
+  return (
+    <>
+      <PageIntro eyebrow="Farmstead Inn" title="Overnight on the farm in an authentic 1884 setting." description="The Joseph Decuis Farmstead Inn includes a restored Farm House, Carriage House, Barn, six bedrooms with private baths, a meeting Loft, and private dining space." />
+      <LodgingDetailSection image={farmsteadImage} imageAlt="Joseph Decuis Farmstead Inn" heading="A rural getaway six miles from the restaurant." body="A quiet getaway, corporate retreat, or wedding party stay can become a full farm experience: fine dining, world-class overnight comfort, farm chores, Wagyu cattle, gardening, animal husbandry, Percheron horses, and beautiful farm grounds." items={farmsteadSpaces} />
+      <ReservationPanel />
+    </>
   );
 }
 
@@ -457,6 +511,103 @@ export function ReviewsPageContent() {
   );
 }
 
+export function BlogPageContent() {
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+
+  useEffect(() => {
+    supabase
+      .from("blog_posts")
+      .select("id,title,slug,excerpt,content,author_name,is_published,published_at")
+      .eq("is_published", true)
+      .order("published_at", { ascending: false })
+      .then(({ data }) => setPosts(data ?? []));
+  }, []);
+
+  return (
+    <>
+      <PageIntro eyebrow="Blog" title="Stories from the farm, table, and inns." description="Joseph Decuis is more than a restaurant: fine dining, the farm that supplies it, bed and breakfasts, the Emporium, and a team working together to create the full experience." />
+      <section className="border-y border-border bg-card/30 px-5 py-20 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <blockquote className="max-w-4xl border-l border-primary pl-6 text-xl leading-9 text-foreground">
+            “I am proud to have such a talented team of employees working together to create the synergy that is Joseph Decuis. It takes many to tell our story and I hope you enjoy our blog.”
+            <span className="mt-4 block text-sm text-primary">Alice Eshelman, Proprietor</span>
+          </blockquote>
+          <div className="mt-10 flex justify-end">
+            <Button asChild variant="reserve"><Link to="/blog/manage">Owner blog login <ArrowRight /></Link></Button>
+          </div>
+          <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {posts.map((post) => (
+              <article key={post.id} className="luxury-panel rounded-lg border border-border p-6">
+                <p className="text-xs uppercase tracking-[0.22em] text-primary">{post.author_name}</p>
+                <h2 className="mt-4 font-display text-3xl leading-tight text-foreground">{post.title}</h2>
+                <p className="mt-4 text-sm leading-6 text-muted-foreground">{post.excerpt}</p>
+                <p className="mt-5 text-sm leading-6 text-foreground">{post.content}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+
+export function BlogManagerPageContent() {
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [message, setMessage] = useState("Sign in as an owner to create and edit blog posts.");
+  const [form, setForm] = useState({ title: "", excerpt: "", content: "", author_name: "Joseph Decuis", is_published: true });
+
+  const loadPosts = () => {
+    supabase
+      .from("blog_posts")
+      .select("id,title,slug,excerpt,content,author_name,is_published,published_at")
+      .order("created_at", { ascending: false })
+      .then(({ data }) => setPosts(data ?? []));
+  };
+
+  useEffect(loadPosts, []);
+
+  const createPost = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const slug = form.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+    const { error } = await supabase.from("blog_posts").insert({ ...form, slug, published_at: form.is_published ? new Date().toISOString() : null });
+    if (error) {
+      setMessage("Please sign in with an owner account before publishing.");
+      return;
+    }
+    setForm({ title: "", excerpt: "", content: "", author_name: "Joseph Decuis", is_published: true });
+    setMessage("Blog post saved.");
+    loadPosts();
+  };
+
+  return (
+    <>
+      <PageIntro eyebrow="Blog manager" title="Write Joseph Decuis blog posts." description="Owners can publish stories about the restaurant, farm, accommodations, Emporium, events, and seasonal experiences." />
+      <section className="border-y border-border bg-card/30 px-5 py-20 lg:px-8">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+          <form onSubmit={createPost} className="luxury-panel rounded-lg border border-border p-6">
+            <p className="text-sm text-primary">{message}</p>
+            <input value={form.title} onChange={(event) => setForm({ ...form, title: event.target.value })} className="mt-5 w-full rounded-md border border-input bg-background px-4 py-3 text-foreground" placeholder="Post title" required />
+            <input value={form.author_name} onChange={(event) => setForm({ ...form, author_name: event.target.value })} className="mt-4 w-full rounded-md border border-input bg-background px-4 py-3 text-foreground" placeholder="Author name" required />
+            <textarea value={form.excerpt} onChange={(event) => setForm({ ...form, excerpt: event.target.value })} className="mt-4 min-h-24 w-full rounded-md border border-input bg-background px-4 py-3 text-foreground" placeholder="Short excerpt" required />
+            <textarea value={form.content} onChange={(event) => setForm({ ...form, content: event.target.value })} className="mt-4 min-h-48 w-full rounded-md border border-input bg-background px-4 py-3 text-foreground" placeholder="Blog content" required />
+            <label className="mt-4 flex items-center gap-3 text-sm text-muted-foreground"><input type="checkbox" checked={form.is_published} onChange={(event) => setForm({ ...form, is_published: event.target.checked })} /> Publish now</label>
+            <Button type="submit" variant="luxury" className="mt-6">Save post</Button>
+          </form>
+          <div className="grid gap-4">
+            {posts.map((post) => (
+              <article key={post.id} className="rounded-lg border border-border bg-background/55 p-6">
+                <p className="text-xs uppercase tracking-[0.22em] text-primary">{post.is_published ? "Published" : "Draft"}</p>
+                <h2 className="mt-3 font-display text-2xl text-foreground">{post.title}</h2>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">{post.excerpt}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+
 export function ReservePageContent() {
   return (
     <>
@@ -464,6 +615,34 @@ export function ReservePageContent() {
       <ReservationPolicySection />
       <ReservationPanel />
     </>
+  );
+}
+
+function LodgingDetailSection({ image, imageAlt, heading, body, items }: { image: string; imageAlt: string; heading: string; body: string; items: { name: string; description: string }[] }) {
+  return (
+    <section className="border-y border-border bg-card/30 px-5 py-20 lg:px-8">
+      <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+        <div className="overflow-hidden rounded-lg border border-border">
+          <img src={image} alt={imageAlt} className="aspect-[4/3] w-full object-cover" loading="lazy" />
+        </div>
+        <div>
+          <h2 className="font-display text-5xl leading-tight text-foreground">{heading}</h2>
+          <p className="mt-5 text-base leading-7 text-muted-foreground">{body}</p>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            <p className="flex items-center gap-3 text-sm text-muted-foreground"><Phone className="size-5 text-primary" /> Book by calling (260) 672-1715</p>
+            <p className="flex items-center gap-3 text-sm text-muted-foreground"><Sparkles className="size-5 text-primary" /> $200 per night · Joseph Decuis Suite $500</p>
+          </div>
+          <div className="mt-10 grid gap-4">
+            {items.map((item) => (
+              <article key={item.name} className="rounded-lg border border-border bg-background/55 p-6">
+                <h3 className="font-display text-2xl text-primary">{item.name}</h3>
+                <p className="mt-3 text-sm leading-6 text-muted-foreground">{item.description}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
