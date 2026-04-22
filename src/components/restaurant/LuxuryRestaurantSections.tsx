@@ -511,6 +511,103 @@ export function ReviewsPageContent() {
   );
 }
 
+export function BlogPageContent() {
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+
+  useEffect(() => {
+    supabase
+      .from("blog_posts")
+      .select("id,title,slug,excerpt,content,author_name,is_published,published_at")
+      .eq("is_published", true)
+      .order("published_at", { ascending: false })
+      .then(({ data }) => setPosts(data ?? []));
+  }, []);
+
+  return (
+    <>
+      <PageIntro eyebrow="Blog" title="Stories from the farm, table, and inns." description="Joseph Decuis is more than a restaurant: fine dining, the farm that supplies it, bed and breakfasts, the Emporium, and a team working together to create the full experience." />
+      <section className="border-y border-border bg-card/30 px-5 py-20 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <blockquote className="max-w-4xl border-l border-primary pl-6 text-xl leading-9 text-foreground">
+            “I am proud to have such a talented team of employees working together to create the synergy that is Joseph Decuis. It takes many to tell our story and I hope you enjoy our blog.”
+            <span className="mt-4 block text-sm text-primary">Alice Eshelman, Proprietor</span>
+          </blockquote>
+          <div className="mt-10 flex justify-end">
+            <Button asChild variant="reserve"><Link to="/blog/manage">Owner blog login <ArrowRight /></Link></Button>
+          </div>
+          <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {posts.map((post) => (
+              <article key={post.id} className="luxury-panel rounded-lg border border-border p-6">
+                <p className="text-xs uppercase tracking-[0.22em] text-primary">{post.author_name}</p>
+                <h2 className="mt-4 font-display text-3xl leading-tight text-foreground">{post.title}</h2>
+                <p className="mt-4 text-sm leading-6 text-muted-foreground">{post.excerpt}</p>
+                <p className="mt-5 text-sm leading-6 text-foreground">{post.content}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+
+export function BlogManagerPageContent() {
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [message, setMessage] = useState("Sign in as an owner to create and edit blog posts.");
+  const [form, setForm] = useState({ title: "", excerpt: "", content: "", author_name: "Joseph Decuis", is_published: true });
+
+  const loadPosts = () => {
+    supabase
+      .from("blog_posts")
+      .select("id,title,slug,excerpt,content,author_name,is_published,published_at")
+      .order("created_at", { ascending: false })
+      .then(({ data }) => setPosts(data ?? []));
+  };
+
+  useEffect(loadPosts, []);
+
+  const createPost = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const slug = form.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+    const { error } = await supabase.from("blog_posts").insert({ ...form, slug, published_at: form.is_published ? new Date().toISOString() : null });
+    if (error) {
+      setMessage("Please sign in with an owner account before publishing.");
+      return;
+    }
+    setForm({ title: "", excerpt: "", content: "", author_name: "Joseph Decuis", is_published: true });
+    setMessage("Blog post saved.");
+    loadPosts();
+  };
+
+  return (
+    <>
+      <PageIntro eyebrow="Blog manager" title="Write Joseph Decuis blog posts." description="Owners can publish stories about the restaurant, farm, accommodations, Emporium, events, and seasonal experiences." />
+      <section className="border-y border-border bg-card/30 px-5 py-20 lg:px-8">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+          <form onSubmit={createPost} className="luxury-panel rounded-lg border border-border p-6">
+            <p className="text-sm text-primary">{message}</p>
+            <input value={form.title} onChange={(event) => setForm({ ...form, title: event.target.value })} className="mt-5 w-full rounded-md border border-input bg-background px-4 py-3 text-foreground" placeholder="Post title" required />
+            <input value={form.author_name} onChange={(event) => setForm({ ...form, author_name: event.target.value })} className="mt-4 w-full rounded-md border border-input bg-background px-4 py-3 text-foreground" placeholder="Author name" required />
+            <textarea value={form.excerpt} onChange={(event) => setForm({ ...form, excerpt: event.target.value })} className="mt-4 min-h-24 w-full rounded-md border border-input bg-background px-4 py-3 text-foreground" placeholder="Short excerpt" required />
+            <textarea value={form.content} onChange={(event) => setForm({ ...form, content: event.target.value })} className="mt-4 min-h-48 w-full rounded-md border border-input bg-background px-4 py-3 text-foreground" placeholder="Blog content" required />
+            <label className="mt-4 flex items-center gap-3 text-sm text-muted-foreground"><input type="checkbox" checked={form.is_published} onChange={(event) => setForm({ ...form, is_published: event.target.checked })} /> Publish now</label>
+            <Button type="submit" variant="luxury" className="mt-6">Save post</Button>
+          </form>
+          <div className="grid gap-4">
+            {posts.map((post) => (
+              <article key={post.id} className="rounded-lg border border-border bg-background/55 p-6">
+                <p className="text-xs uppercase tracking-[0.22em] text-primary">{post.is_published ? "Published" : "Draft"}</p>
+                <h2 className="mt-3 font-display text-2xl text-foreground">{post.title}</h2>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">{post.excerpt}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+
 export function ReservePageContent() {
   return (
     <>
