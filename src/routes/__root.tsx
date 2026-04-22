@@ -78,6 +78,7 @@ function SiteHeader() {
     { to: "/" as const, label: "Home" },
     { to: "/menu" as const, label: "Menu" },
     { to: "/story" as const, label: "Story" },
+    { to: "/weddings" as const, label: "Weddings" },
     { to: "/reviews" as const, label: "Reviews" },
   ];
 
@@ -131,8 +132,8 @@ function SiteFooter() {
         </div>
         <div className="space-y-3 text-sm text-muted-foreground">
           <p className="text-foreground">Dinner Hours</p>
-          <p>Wednesday–Saturday · 5–7:30 PM</p>
-          <p>Closed Sunday–Tuesday</p>
+          <p>Wednesday–Saturday · reservations 5–8 PM</p>
+          <p>Emporium Tuesday–Saturday · 10 AM–5:30 PM</p>
         </div>
       </div>
     </footer>
