@@ -4,6 +4,8 @@ import { ArrowRight, CalendarCheck, ChefHat, Clock, Leaf, MapPin, Phone, Quote, 
 import { Button } from "@/components/ui/button";
 import steakImage from "@/assets/joseph-decuis-real-steak.jpg";
 import diningRoomImage from "@/assets/joseph-decuis-dining-room.jpg";
+import weddingFarmImage from "@/assets/joseph-decuis-wedding-farm.png";
+import weddingReceptionImage from "@/assets/joseph-decuis-wedding-reception.png";
 
 const highlights = [
   { icon: Leaf, label: "Farm-raised Wagyu", detail: "Sourced from the Joseph Decuis farm" },
@@ -11,15 +13,69 @@ const highlights = [
   { icon: ChefHat, label: "Seasonal American", detail: "Elegant entrées built around peak ingredients" },
 ];
 
-const signatureDishes = [
-  "Joseph Decuis Farm Wagyu Steaks",
-  "Wagyu Tartare",
-  "Bone Marrow Appetizer",
-  "Charcuterie Board",
-  "Scallops",
-  "Beet Salad",
-  "Octopus",
-  "Bourbon Pecan Chocolate Cake",
+const menuSections = [
+  {
+    title: "Appetizers",
+    items: [
+      { name: "Focaccia", price: "$8", description: "Wagyu tallow candle (V)" },
+      { name: "Wagyu Tartar", price: "$30", description: "Gaufrettes, quail egg (GF)(DF)" },
+      { name: "Hummus Board", price: "$12", description: "Olives, feta, chili oil, house sourdough crackers (V)(GFO)" },
+      { name: "Oysters Bienville (3)", price: "$18", description: "Blue Points, shrimp, mushrooms, cream, Parmesan" },
+      { name: "Charcuterie Board", price: "$26", description: "House cured Wagyu & Mangalitsa sausages, assorted cheeses and accompaniments (GFO)" },
+    ],
+  },
+  {
+    title: "Soups & Salads",
+    items: [
+      { name: "Carrot Ginger Bisque", price: "$12", description: "Goat cheese cream, focaccia croutons (V)(GFO)" },
+      { name: "Lovely Salad", price: "$12", description: "Mixed greens, goat cheese, Marcona almonds, raspberry vinaigrette (V)(GF)(VGO)" },
+      { name: "Seafood Gumbo", price: "$16", description: "A Joseph Decuis classic: shrimp, crab, peppers, onion, tomato, okra, rice & scallions" },
+      { name: "Farm Kale Salad", price: "$12", description: "Warm bacon dressing, chickpeas, candied pecans, Parmesan (GF)(DFO)" },
+      { name: "Farm Salad", price: "$10", description: "Mixed greens, carrots, radish, apple cider vinaigrette (GF)(VG)" },
+    ],
+  },
+  {
+    title: "Entrées",
+    items: [
+      { name: "100% Full Blood Wagyu Steaks", price: "$MKT", description: "Robuchon potatoes, seasonal vegetables (GF). Price determined by cut." },
+      { name: "Wagyu Flank Involtini", price: "$65", description: "Panko, currants, sunflower seeds, marinara sauce, fried polenta, broccoli rabe" },
+      { name: "Herbed Fettuccine Primavera", price: "$24", description: "Seasonal vegetables, pesto butter sauce (V)" },
+      { name: "North Atlantic Salmon", price: "$40", description: "Lemon caper butter sauce, spring pea risotto (GF)" },
+      { name: "Grilled Lamb Pops", price: "$45", description: "Chimichurri, creamy polenta, confit tomatoes, goat cheese salad (GFO)" },
+      { name: "Coq au Vin", price: "$38", description: "Hoffman farm chicken leg quarter, rich gravy, Robuchon potatoes, carrots, mushrooms (GFO)" },
+    ],
+  },
+  {
+    title: "Desserts",
+    items: [
+      { name: "Chocolate Bourbon Pecan Cake", price: "$12", description: "Flourless chocolate cake, crème anglaise, whipped cream (GF)" },
+      { name: "Orange Dreamcicle Crème Brûlée", price: "$12", description: "(V)(GF)" },
+      { name: "Seasonal Sorbet", price: "$8", description: "(VG)(GF)" },
+      { name: "Bananas Foster", price: "$12", description: "Vanilla ice cream (V)(GF)" },
+    ],
+  },
+  {
+    title: "Ports",
+    items: [
+      { name: "Blandys Madeira 5 Year", price: "$8", description: "" },
+      { name: "Ramos Pinto LBV 2012", price: "$20", description: "" },
+      { name: "Ramos Pinto 10 Year Tawny", price: "$11", description: "" },
+      { name: "Ramos Pinto 20 Year Tawny", price: "$18", description: "" },
+      { name: "Quinta do Tedo", price: "$10", description: "" },
+      { name: "Quinta do Tedo Reserve", price: "$16", description: "" },
+      { name: "Sandemans Founders Reserve Ruby", price: "$10", description: "" },
+      { name: "Sandeman 30 Year", price: "$29", description: "" },
+      { name: "Sandeman 40 Year", price: "$42", description: "" },
+      { name: "Zinfandel", price: "$9", description: "" },
+    ],
+  },
+  {
+    title: "Espresso & Coffee",
+    items: [
+      { name: "Espresso Martini", price: "$13", description: "" },
+      { name: "Joseph Decuis Signature Blend Coffee", price: "$2.50", description: "" },
+    ],
+  },
 ];
 
 const reviews = [
