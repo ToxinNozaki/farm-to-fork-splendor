@@ -508,6 +508,34 @@ export function ReservePageContent() {
   );
 }
 
+function LodgingDetailSection({ image, imageAlt, heading, body, items }: { image: string; imageAlt: string; heading: string; body: string; items: { name: string; description: string }[] }) {
+  return (
+    <section className="border-y border-border bg-card/30 px-5 py-20 lg:px-8">
+      <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+        <div className="overflow-hidden rounded-lg border border-border">
+          <img src={image} alt={imageAlt} className="aspect-[4/3] w-full object-cover" loading="lazy" />
+        </div>
+        <div>
+          <h2 className="font-display text-5xl leading-tight text-foreground">{heading}</h2>
+          <p className="mt-5 text-base leading-7 text-muted-foreground">{body}</p>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            <p className="flex items-center gap-3 text-sm text-muted-foreground"><Phone className="size-5 text-primary" /> Book by calling (260) 672-1715</p>
+            <p className="flex items-center gap-3 text-sm text-muted-foreground"><Sparkles className="size-5 text-primary" /> $200 per night · Joseph Decuis Suite $500</p>
+          </div>
+          <div className="mt-10 grid gap-4">
+            {items.map((item) => (
+              <article key={item.name} className="rounded-lg border border-border bg-background/55 p-6">
+                <h3 className="font-display text-2xl text-primary">{item.name}</h3>
+                <p className="mt-3 text-sm leading-6 text-muted-foreground">{item.description}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function PageIntro({ eyebrow, title, description }: { eyebrow: string; title: string; description: string }) {
   return (
     <section className="px-5 py-20 lg:px-8">
