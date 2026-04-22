@@ -148,23 +148,30 @@ export function HighlightsSection() {
 export function MenuPreviewSection() {
   return (
     <section className="border-y border-border bg-card/30 px-5 py-20 lg:px-8">
-      <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
+      <div className="mx-auto max-w-7xl">
         <div>
-          <p className="text-sm uppercase tracking-[0.26em] text-primary">Menu highlights</p>
-          <h2 className="mt-4 font-display text-5xl leading-tight text-foreground">Built around the farm, finished for the table.</h2>
-          <p className="mt-5 text-base leading-7 text-muted-foreground">
-            The experience centers on Joseph Decuis Farm Wagyu, seasonal entrées, and polished starters designed for guests ready to celebrate.
+          <p className="text-sm uppercase tracking-[0.26em] text-primary">Spring 2026 market menu</p>
+          <h2 className="mt-4 max-w-4xl font-display text-5xl leading-tight text-foreground">Built around the farm, finished for the table.</h2>
+          <p className="mt-5 max-w-3xl text-base leading-7 text-muted-foreground">
+            Open Wednesday through Saturday nights. Dietary notes: (V) vegetarian, (VG) vegan, (GF) gluten free, (DF) dairy free, with options noted on select dishes.
           </p>
-          <Button asChild variant="luxury" className="mt-8">
-            <Link to="/menu">Explore menu</Link>
-          </Button>
         </div>
-        <div className="grid gap-3 sm:grid-cols-2">
-          {signatureDishes.map((dish, index) => (
-            <div key={dish} className="rounded-lg border border-border bg-background/55 p-5 backdrop-blur transition-colors hover:border-primary/60">
-              <p className="text-xs text-primary">{String(index + 1).padStart(2, "0")}</p>
-              <h3 className="mt-3 font-display text-xl text-foreground">{dish}</h3>
-            </div>
+        <div className="mt-10 grid gap-5 lg:grid-cols-2">
+          {menuSections.map((section) => (
+            <article key={section.title} className="rounded-lg border border-border bg-background/55 p-6 backdrop-blur">
+              <h3 className="font-display text-3xl text-primary">{section.title}</h3>
+              <div className="mt-5 space-y-5">
+                {section.items.map((item) => (
+                  <div key={`${section.title}-${item.name}`} className="border-t border-border pt-4 first:border-t-0 first:pt-0">
+                    <div className="flex items-start justify-between gap-4">
+                      <p className="font-display text-xl text-foreground">{item.name}</p>
+                      <p className="shrink-0 text-sm font-semibold text-primary">{item.price}</p>
+                    </div>
+                    {item.description ? <p className="mt-2 text-sm leading-6 text-muted-foreground">{item.description}</p> : null}
+                  </div>
+                ))}
+              </div>
+            </article>
           ))}
         </div>
       </div>
