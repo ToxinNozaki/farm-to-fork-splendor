@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, CalendarCheck, ChefHat, Clock, Leaf, MapPin, Phone, Quote, Sparkles, Star, UtensilsCrossed, Wine } from "lucide-react";
+import { ArrowRight, CalendarCheck, ChefHat, Clock, ExternalLink, Leaf, MapPin, Phone, Quote, Sparkles, Star, UtensilsCrossed, Wine } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import steakImage from "@/assets/joseph-decuis-main-steak.jpg";
@@ -84,6 +84,19 @@ const reviews = [
   "The atmosphere is nice with dim lighting, candles on each table, and warm decor.",
   "People like me have no problem paying for a quality dining experience.",
   "This is my all-time favorite restaurant; spectacular food, service and ambience.",
+];
+
+const innRooms = [
+  { name: "The Master Suite", description: "A spacious king suite with a large private bathroom, walk-in shower and tub, separate dressing room, Victorian fainting couch, and antique dressing table." },
+  { name: "Sedorah", description: "A garden-like guest room with a comfortable queen-size bed and private bathroom." },
+  { name: "Happy Repose", description: "A fresh, restful room with a full-size bed and private bathroom." },
+  { name: "Good Company", description: "A getaway room made for two guests, featuring twin beds and a private bathroom." },
+];
+
+const farmsteadSpaces = [
+  { name: "Carriage House", description: "Home to the Decuis Suite with a private living room, wood-burning stove, two bedrooms, the panoramic Loft for meetings and receptions, and Garden Suites with a screened-in porch." },
+  { name: "Farm House", description: "The restored 1884 home includes bedrooms with private baths, an 1884-style kitchen, formal dining room, sitting room, chef's kitchen, wine cellar, and root cellar massage room." },
+  { name: "The Barn", description: "The farm nursery where Mangalitza pigs, chickens, rabbits, goats, turkeys, and miniature horses introduce guests to farm life and where food comes from." },
 ];
 
 export function HeroSection() {
